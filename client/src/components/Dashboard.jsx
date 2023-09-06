@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-// import jwtdecode from 'jwt-decode'
 import withAuth from './WithAuth'
 import { toast } from 'react-toastify';
 
@@ -75,11 +74,6 @@ const Dashboard = (props) => {
         // eslint-disable-next-line
     }, [count]);
 
-    useEffect(() => {
-        // sort()
-        // eslint-disable-next-line
-    }, []);
-
     const changeHandler = (e) => {
         setOneIdea({
             ...oneIdea,
@@ -99,7 +93,7 @@ const Dashboard = (props) => {
                 setErrors({
                     idea: "",
                 })
-                // sort()
+
             })
             .catch(err => {
                 console.log(`submit errer`, err)
@@ -115,7 +109,6 @@ const Dashboard = (props) => {
             .then(res => {
                 setCount(count + 1)
                 toastFav(idea.idea)
-                // sort()
             })
             .catch(err => console.log(`FAV error`, err))
     }
@@ -125,7 +118,6 @@ const Dashboard = (props) => {
             .then(res => {
                 setCount(count + 1)
                 toastUnfav(idea.idea)
-                // sort()
             })
             .catch(err => console.log(`UNfav error`, err))
     }
@@ -139,12 +131,6 @@ const Dashboard = (props) => {
             .catch(err => console.log(err))
     }
 
-    // const sort = () => {
-    //     const sortedArray = [...ideaList].sort((a, b) => b.favoritedBy.length - a.favoritedBy.length);
-    //     setIdeaList(sortedArray)
-    //     console.log('sorting...')
-    // }
-
     const options = {
         weekday: "long",
         year: "numeric",
@@ -155,11 +141,10 @@ const Dashboard = (props) => {
     return (
         <div>
             <h1 style={{ marginTop: "75px" }}>Welcome to Bright Ideas</h1>
-            <div className={darkMode ? "mainDivDark" : "mainDivLight"}>
-                {/* <button className="btn btn-danger" onClick={() => sort()}>Sort</button> */}
-                <div className={darkMode ? "col-sm-8 mx-auto bg-dark text-light" : "col-sm-8 mx-auto"}>
+            <div className={"mainDivLight"}>
+                <div className={"col-sm-8 mx-auto"}>
                     {windowWidth > 575 ?
-                        (<form className={darkMode ? "mx-auto bg-dark text-light mt-5" : "mx-auto mt-5"} onSubmit={submitHandler}>
+                        (<form className="mx-auto mt-5" onSubmit={submitHandler}>
                             {oneIdea.idea && oneIdea.idea?.length < 2 ? <p className="text-danger">Idea must be at least 2 characters</p> : null}
                             {errors.idea ? <p className="text-danger">{errors.idea.message}</p> : null}
                             <div className="input-group col-10">
@@ -170,7 +155,7 @@ const Dashboard = (props) => {
                                 <button type="submit" className="input-group-text btn btn-success" onSubmit={submitHandler}>Add idea!</button>
                             </div>
                         </form>) :
-                        (<form className={darkMode ? "mx-auto bg-dark text-light mt-5" : "mx-auto mt-5"} onSubmit={submitHandler}>
+                        (<form className={"mx-auto mt-5"} onSubmit={submitHandler}>
                             {oneIdea.idea && oneIdea.idea?.length < 2 ? <p className="text-danger">Idea must be at least 2 characters</p> : null}
                             {errors.idea ? <p className="text-danger">{errors.idea.message}</p> : null}
                             <div className="form-floating col-10 mx-auto">
@@ -188,7 +173,7 @@ const Dashboard = (props) => {
                             <div className='mt-5' key={idea._id}>
                                 {
                                     idea?.addedBy ?
-                                        <><span>On {new Date(idea.createdAt).toLocaleString("en-US", options)} at {new Date(idea.createdAt).toLocaleString([], { timeStyle: 'short' })}, </span><Link to={`/users/${idea.addedBy.name}`}>{idea?.addedBy.name}</Link><span> said:</span>&nbsp;</> :
+                                        <><span>On {new Date(idea.createdAt).toLocaleString("en-US", options)} at {new Date(idea.createdAt).toLocaleString([], { timeStyle: 'short' })}, </span><Link to={`/users/${idea.addedBy.alias}`}>{idea?.addedBy.name}</Link><span> said:</span>&nbsp;</> :
                                         <span>Deleted User says: </span>
                                 }
                                 <br className="MQHide" />
@@ -204,13 +189,14 @@ const Dashboard = (props) => {
                                 </span>
                                 <br className='MQHide' />
                                 { // fav/unfav
-                                    ideaList[index].favoritedBy.some(ideaObj => ideaObj._id === user?._id) && darkMode ? <><button className="btn btn-outline-danger" onClick={() => unfavoriteIdea(idea)}>✩</button>&nbsp;</> :
-                                        ideaList[index].favoritedBy.some(ideaObj => ideaObj._id === user?._id) ? <><button className="btn btn-danger" onClick={() => unfavoriteIdea(idea)}>✩</button>&nbsp;</> :
-                                            darkMode ? <><button className="btn btn-outline-success" onClick={() => favoriteIdea(idea)}>★</button>&nbsp;</> :
-                                                <><button className="btn btn-success" onClick={() => favoriteIdea(idea)}>★</button>&nbsp;</>
-                                }
+                                    ideaList[index].favoritedBy.some(ideaObj => ideaObj._id === user?._id) ? (
+                                        <button className="btn btn-danger" onClick={() => unfavoriteIdea(idea)}>✩</button>
+                                    ) : (
+                                        <button className="btn btn-success" onClick={() => favoriteIdea(idea)}>★</button>
+                                    )}
+
                                 { // delete if logged in user or 'admin' email user
-                                    (welcome === (`${idea?.addedBy?.name} (@${idea?.addedBy?.displayName})`) || user?.email === "t@w.com") ? <><button className={darkMode ? "btn btn-outline-danger" : "btn btn-dark"} onClick={() => removeIdea(idea)}>🅧</button>&nbsp;&nbsp;</> : null
+                                    (welcome === (`${idea?.addedBy?.name} (@${idea?.addedBy?.alias})`) || user?.email === "t@w.com") ? <><button className={"btn btn-dark"} onClick={() => removeIdea(idea)}>🅧</button>&nbsp;&nbsp;</> : null
                                 }
                             </div>
                         )

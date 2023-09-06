@@ -12,7 +12,7 @@ module.exports = {
                 res.status(400).json({ msg: "Email exists" })
             } else {
                 const newUser = await User.create(req.body);
-                const userToken = jwt.sign({ _id: newUser.id, email: newUser.email, name: newUser.name, displayName: newUser.displayName }, secret, { expiresIn: "1d" });
+                const userToken = jwt.sign({ _id: newUser.id, email: newUser.email, name: newUser.name, alias: newUser.alias }, secret, { expiresIn: "1d" });
                 res.cookie("userToken", userToken, { httpOnly: false }).json({ msg: "Create new userToken success!", user: newUser })
             }
         } catch (err) {
@@ -26,7 +26,7 @@ module.exports = {
             if (user) {
                 const passwordMatch = await bcrypt.compare(req.body.password, user.password)
                 if (passwordMatch) {
-                    const userToken = jwt.sign({ _id: user.id, email: user.email, name: user.name, displayName: user.displayName, ideasFavorited: user.ideasFavorited }, secret, { expiresIn: "1d" });
+                    const userToken = jwt.sign({ _id: user.id, email: user.email, name: user.name, alias: user.alias, ideasFavorited: user.ideasFavorited }, secret, { expiresIn: "1d" });
                     res.cookie("userToken", userToken, { httpOnly: false }).json({ msg: "Login success!", user: user })
                 } else {
                     res.status(400).json({ message: "Invalid login attempt" })
