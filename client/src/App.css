@@ -1,0 +1,179 @@
+html {
+  height: 100vh
+}
+
+body {
+  height: 100%;
+}
+
+.AppLight {
+  text-align: center;
+  /* background-color: white; */
+}
+
+.AppDark {
+  text-align: center;
+  background-color: rgb(33, 37, 41);
+  color: lightgrey;
+  /* opacity: 20%; */
+}
+
+.AppDark a {
+  color: white
+}
+
+.AppLight a {
+  color: #009050
+}
+
+nav {
+  display: flex;
+  position: fixed;
+  top: 0%;
+  width: 100%;
+  /* padding: 0 20px 0 20px; */
+  overflow: hidden;
+  z-index: 100;
+}
+
+footer {
+  width: 100%;
+  margin: 0 auto;
+  background-color: whitesmoke;
+  background-color: lightgrey;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px black;
+  text-decoration: none;
+  color: darkslategrey;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0%;
+  text-align: center;
+  z-index: 100;
+}
+
+.footerDark {
+  background-color: rgb(33, 37, 41);
+  color: lightgrey;
+  box-shadow: 0 0 10px lightgrey;
+}
+
+.navLight {
+  background-color: whitesmoke;
+  background-color: lightgrey;
+  /* color: darkslategrey; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  box-shadow: 0 0 10px black;
+  /* position: fixed; */
+}
+
+.navDark {
+  background-color: whitesmoke;
+  background-color: rgb(33, 37, 41);
+  /* color: darkslategrey; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  box-shadow: 0 0 10px grey;
+  /* position: fixed; */
+}
+
+nav h1 {
+  padding: 10px 0;
+  /* font-size: 18px; */
+  margin-right: 10px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 50px
+}
+
+.navLight ul a,
+.navLight a {
+  text-decoration: none;
+  color: black;
+  /* font-size: 1.5rem; */
+}
+
+.navDark ul a,
+.navDark a {
+  text-decoration: none;
+  color: lightgrey;
+  /* font-size: 1.5rem; */
+}
+
+.navDark h1,
+.navDark h4 {
+  color: lightgrey
+}
+
+.hide {
+  display: none;
+}
+
+.mainDivLight a {
+  color: #009050;
+}
+
+.mainDivDark a {
+  color: white;
+}
+
+.flex {
+  display: flex;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  padding: 10px;
+  /* margin: auto */
+
+}
+
+.regLog {
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: rgb(50, 50, 50);
+  color: lightgrey;
+}
+
+.darkText {
+  color: darkslategrey
+}
+
+.idea {
+  line-height: 2;
+}
+
+.MQHide {
+  display: none
+}
+
+@media (width < 900px) {
+  .MQHide {
+    display: block
+  }
+
+  nav h1,
+  nav h4,
+  nav a,
+  nav span {
+    font-size: 1rem;
+    /* color: red; */
+  }
+}
+
+@media (width < 900px) {
+  .ideaList {
+    margin-left: 10%;
+  }
+}
